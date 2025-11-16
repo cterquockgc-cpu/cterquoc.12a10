@@ -1,0 +1,847 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quốc Cter - Profile</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+        }
+        
+        :root {
+            --primary: #1877f2;
+            --primary-dark: #166fe5;
+            --secondary: #42b72a;
+            --secondary-dark: #36a420;
+            --bg-color: #f0f2f5;
+            --card-bg: #ffffff;
+            --text-primary: #1c1e21;
+            --text-secondary: #65676b;
+            --text-light: #8a8d91;
+            --border-color: #dddfe2;
+            --shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
+            --shadow-hover: 0 4px 20px rgba(0, 0, 0, 0.15);
+            --gradient: linear-gradient(135deg, #6e8efb, #a777e3);
+            --radius: 12px;
+            --transition: all 0.3s ease;
+        }
+        
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-primary);
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        /* Header Styles */
+        .profile-header {
+            background-color: var(--card-bg);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            padding: 20px;
+            margin-bottom: 25px;
+            position: relative;
+            overflow: hidden;
+            transition: var(--transition);
+        }
+        
+        .profile-header:hover {
+            box-shadow: var(--shadow-hover);
+        }
+        
+        .cover-photo {
+            height: 320px;
+            background-color: #e9ebee;
+            border-radius: var(--radius) var(--radius) 0 0;
+            margin: -20px -20px 20px -20px;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .cover-photo::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 100px;
+            background: linear-gradient(transparent, rgba(0,0,0,0.1));
+        }
+        
+        .profile-info {
+            display: flex;
+            align-items: flex-start;
+            gap: 25px;
+        }
+        
+        .profile-avatar {
+            width: 170px;
+            height: 170px;
+            border-radius: 50%;
+            border: 5px solid var(--card-bg);
+            margin-top: -100px;
+            background-color: #e9ebee;
+            background-size: cover;
+            background-position: center;
+            box-shadow: var(--shadow);
+            position: relative;
+            z-index: 2;
+            transition: var(--transition);
+        }
+        
+        .profile-avatar:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+        }
+        
+        .profile-details {
+            flex: 1;
+            padding-top: 10px;
+        }
+        
+        .profile-name {
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 8px;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            display: inline-block;
+        }
+        
+        .profile-bio {
+            color: var(--text-secondary);
+            margin-bottom: 18px;
+            font-size: 16px;
+            line-height: 1.8;
+            max-width: 600px;
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+        
+        .social-link {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--primary);
+            text-decoration: none;
+            font-size: 15px;
+            font-weight: 600;
+            padding: 8px 16px;
+            border-radius: 20px;
+            background-color: rgba(24, 119, 242, 0.1);
+            transition: var(--transition);
+        }
+        
+        .social-link:hover {
+            background-color: rgba(24, 119, 242, 0.2);
+            transform: translateY(-2px);
+        }
+        
+        .social-link.youtube {
+            color: #ff0000;
+            background-color: rgba(255, 0, 0, 0.1);
+        }
+        
+        .social-link.youtube:hover {
+            background-color: rgba(255, 0, 0, 0.2);
+        }
+        
+        .profile-actions {
+            display: flex;
+            gap: 12px;
+            margin-top: 20px;
+        }
+        
+        .btn {
+            padding: 10px 24px;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            border: none;
+            font-size: 15px;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .btn-primary {
+            background-color: var(--primary);
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background-color: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(24, 119, 242, 0.4);
+        }
+        
+        .btn-secondary {
+            background-color: #e4e6eb;
+            color: var(--text-primary);
+        }
+        
+        .btn-secondary:hover {
+            background-color: #d8dadf;
+            transform: translateY(-2px);
+        }
+        
+        /* Main Content Styles */
+        .profile-content {
+            display: flex;
+            gap: 25px;
+        }
+        
+        .left-sidebar {
+            width: 30%;
+        }
+        
+        .right-content {
+            width: 70%;
+        }
+        
+        .card {
+            background-color: var(--card-bg);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            padding: 20px;
+            margin-bottom: 25px;
+            transition: var(--transition);
+            border: 1px solid var(--border-color);
+        }
+        
+        .card:hover {
+            box-shadow: var(--shadow-hover);
+        }
+        
+        .card-title {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 18px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .card-title i {
+            color: var(--primary);
+        }
+        
+        /* Intro Section */
+        .intro-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 14px;
+            color: var(--text-secondary);
+            padding: 8px 0;
+            transition: var(--transition);
+            border-radius: 6px;
+            padding-left: 8px;
+        }
+        
+        .intro-item:hover {
+            background-color: rgba(0, 0, 0, 0.03);
+            padding-left: 12px;
+        }
+        
+        .intro-item i {
+            width: 20px;
+            text-align: center;
+            color: var(--primary);
+        }
+        
+        /* Photos Section */
+        .photos-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 6px;
+        }
+        
+        .photo-item {
+            aspect-ratio: 1;
+            background-color: #e4e6eb;
+            border-radius: 8px;
+            background-size: cover;
+            background-position: center;
+            transition: var(--transition);
+            cursor: pointer;
+        }
+        
+        .photo-item:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        }
+        
+        .view-all {
+            display: block;
+            text-align: center;
+            padding: 12px;
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 600;
+            margin-top: 12px;
+            border-radius: 6px;
+            transition: var(--transition);
+        }
+        
+        .view-all:hover {
+            background-color: rgba(24, 119, 242, 0.1);
+        }
+        
+        /* Create Post Section */
+        .create-post {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+        
+        .post-avatar {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background-color: #e4e6eb;
+            background-size: cover;
+            background-position: center;
+            flex-shrink: 0;
+        }
+        
+        .post-input {
+            flex: 1;
+            padding: 14px 20px;
+            border-radius: 24px;
+            background-color: #f0f2f5;
+            border: none;
+            font-size: 16px;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        
+        .post-input:hover {
+            background-color: #e4e6eb;
+        }
+        
+        /* Timeline Section */
+        .timeline-item {
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        .timeline-item:last-child {
+            border-bottom: none;
+        }
+        
+        .timeline-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 14px;
+        }
+        
+        .timeline-avatar {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background-color: #e4e6eb;
+            background-size: cover;
+            background-position: center;
+        }
+        
+        .timeline-info {
+            flex: 1;
+        }
+        
+        .timeline-name {
+            font-weight: 600;
+            font-size: 16px;
+        }
+        
+        .timeline-date {
+            color: var(--text-light);
+            font-size: 13px;
+            margin-top: 2px;
+        }
+        
+        .timeline-content {
+            margin-bottom: 14px;
+            font-size: 15px;
+            line-height: 1.7;
+        }
+        
+        .timeline-image {
+            width: 100%;
+            border-radius: 12px;
+            margin-top: 14px;
+            background-color: #e4e6eb;
+            height: 350px;
+            background-size: cover;
+            background-position: center;
+            transition: var(--transition);
+            cursor: pointer;
+        }
+        
+        .timeline-image:hover {
+            transform: scale(1.01);
+        }
+        
+        .timeline-actions {
+            display: flex;
+            justify-content: space-between;
+            padding: 12px 0;
+            margin-top: 16px;
+        }
+        
+        .action-btn {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            color: var(--text-secondary);
+            font-weight: 600;
+            transition: var(--transition);
+        }
+        
+        .action-btn:hover {
+            background-color: #f0f2f5;
+            color: var(--primary);
+        }
+        
+        /* Checkbox Styles */
+        .checkbox-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 12px;
+            padding: 12px;
+            border-radius: 8px;
+            transition: var(--transition);
+            cursor: pointer;
+        }
+        
+        .checkbox-item:hover {
+            background-color: rgba(0, 0, 0, 0.03);
+        }
+        
+        .checkbox-item input[type="checkbox"] {
+            width: 20px;
+            height: 20px;
+            accent-color: var(--primary);
+            cursor: pointer;
+        }
+        
+        .checkbox-item label {
+            cursor: pointer;
+            font-weight: 500;
+        }
+        
+        /* Special Event Card */
+        .event-card {
+            background: var(--gradient);
+            color: white;
+            border-radius: var(--radius);
+            padding: 20px;
+            margin-bottom: 25px;
+            box-shadow: var(--shadow);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .event-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.1);
+            transform: rotate(30deg);
+        }
+        
+        .event-title {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .event-date {
+            font-size: 14px;
+            opacity: 0.9;
+        }
+        
+        /* Image Upload Instructions */
+        .image-instructions {
+            background-color: #f8f9fa;
+            border-radius: var(--radius);
+            padding: 15px;
+            margin-bottom: 20px;
+            border-left: 4px solid var(--primary);
+        }
+        
+        .image-instructions h3 {
+            color: var(--primary);
+            margin-bottom: 10px;
+        }
+        
+        .image-instructions ol {
+            margin-left: 20px;
+        }
+        
+        .image-instructions li {
+            margin-bottom: 8px;
+            color: var(--text-secondary);
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .profile-content {
+                flex-direction: column;
+            }
+            
+            .left-sidebar, .right-content {
+                width: 100%;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .profile-info {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .profile-avatar {
+                margin: -100px auto 0;
+            }
+            
+            .social-links {
+                justify-content: center;
+            }
+            
+            .profile-actions {
+                justify-content: center;
+            }
+            
+            .photos-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .container {
+                padding: 10px;
+            }
+            
+            .profile-header {
+                padding: 15px;
+            }
+            
+            .cover-photo {
+                height: 200px;
+                margin: -15px -15px 15px -15px;
+            }
+            
+            .profile-avatar {
+                width: 120px;
+                height: 120px;
+                margin-top: -70px;
+            }
+            
+            .profile-name {
+                font-size: 24px;
+            }
+            
+            .social-links {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .profile-actions {
+                flex-direction: column;
+            }
+            
+            .btn {
+                width: 100%;
+                justify-content: center;
+            }
+            
+            .photos-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+        
+        /* Animation */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .card, .profile-header {
+            animation: fadeIn 0.5s ease-out;
+        }
+        
+        .card:nth-child(2) { animation-delay: 0.1s; }
+        .card:nth-child(3) { animation-delay: 0.2s; }
+        .card:nth-child(4) { animation-delay: 0.3s; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Hướng dẫn thay ảnh -->
+        <div class="image-instructions">
+        </div>
+
+        <!-- Profile Header -->
+        <div class="profile-header">
+            <!-- THAY ĐƯỜNG DẪN ẢNH BÌA TẠI ĐÂY -->
+            <div class="cover-photo" style="background-image: url('anh-bia-cua-ban.jpg')"></div>
+            <div class="profile-info">
+                <!-- THAY ĐƯỜNG DẪN ẢNH ĐẠI DIỆN TẠI ĐÂY -->
+                <div class="profile-avatar" style="background-image: url('anh-dai-dien-cua-ban.jpg')"></div>
+                <div class="profile-details">
+                    <h1 class="profile-name">Quốc Cter</h1>
+                    <p class="profile-bio">Tiktok: shit of king / shit of king AOV<br>Youtube: tinygaro<br>Phở bò: Quốc cter</p>
+                    
+                    <div class="social-links">
+                        <a href="#" class="social-link">
+                            <i class="fab fa-tiktok"></i>
+                            <span>TikTok</span>
+                        </a>
+                        <a href="#" class="social-link youtube">
+                            <i class="fab fa-youtube"></i>
+                            <span>YouTube</span>
+                        </a>
+                    </div>
+                    
+                    <div class="profile-actions">
+                        <button class="btn btn-primary">
+                            <i class="fas fa-plus"></i>
+                            <span>Thêm vào tin</span>
+                        </button>
+                        <button class="btn btn-secondary">
+                            <i class="fas fa-comment"></i>
+                            <span>Nhắn tin</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Main Content -->
+        <div class="profile-content">
+            <!-- Left Sidebar -->
+            <div class="left-sidebar">
+                <!-- Intro Card -->
+                <div class="card">
+                    <h3 class="card-title">
+                        <i class="fas fa-user-circle"></i>
+                        <span>Giới thiệu</span>
+                    </h3>
+                    <div class="intro-item">
+                        <i class="fas fa-user"></i>
+                        <span>Quốc Cter</span>
+                    </div>
+                    <div class="intro-item">
+                        <i class="fab fa-tiktok"></i>
+                        <span>shit of king / shit of king AOV</span>
+                    </div>
+                    <div class="intro-item">
+                        <i class="fab fa-youtube"></i>
+                        <span>tinygaro</span>
+                    </div>
+                    <div class="intro-item">
+                        <i class="fas fa-utensils"></i>
+                        <span>Phở bò: Quốc cter</span>
+                    </div>
+                </div>
+                
+                <!-- Photos Card -->
+                <div class="card">
+                    <h3 class="card-title">
+                        <i class="fas fa-images"></i>
+                        <span>Ảnh</span>
+                    </h3>
+                    <div class="photos-grid">
+                        <!-- THAY ĐƯỜNG DẪN ẢNH TRONG GRID TẠI ĐÂY -->
+                        <div class="photo-item" style="background-image: url('anh-1-cua-ban.jpg')"></div>
+                        <div class="photo-item" style="background-image: url('anh-2-cua-ban.jpg')"></div>
+                        <div class="photo-item" style="background-image: url('anh-3-cua-ban.jpg')"></div>
+                    </div>
+                    <a href="#" class="view-all">Xem tất cả ảnh</a>
+                </div>
+                
+                <!-- Checkbox List -->
+                <div class="card">
+                    <h3 class="card-title">
+                        <i class="fas fa-tasks"></i>
+                        <span>Danh sách</span>
+                    </h3>
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="photo1">
+                        <label for="photo1">Ảnh của tôi 1</label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="photo2">
+                        <label for="photo2">Kho khoảnh khắc 1</label>
+                    </div>
+                </div>
+                
+                <!-- Special Event Card -->
+                <div class="event-card">
+                    <div class="event-title">
+                        <i class="fas fa-calendar-alt"></i>
+                        <span>chào mừng chư vị đạo hữu</span>
+                    </div>
+                    <div class="event-date"></div>
+                </div>
+            </div>
+            
+            <!-- Right Content -->
+            <div class="right-content">
+                <!-- Create Post -->
+                <div class="card">
+                    <div class="create-post">
+                        <!-- THAY ĐƯỜNG DẪN ẢNH ĐẠI DIỆN NHỎ TẠI ĐÂY -->
+                        <div class="post-avatar" style="background-image: url('anh-dai-dien-cua-ban.jpg')"></div>
+                        <input type="text" class="post-input" placeholder="Bạn đang nghĩ gì?">
+                    </div>
+                </div>
+                
+                <!-- Timeline -->
+                <div class="card">
+                    <div class="timeline-item">
+                        <div class="timeline-header">
+                            <!-- THAY ĐƯỜNG DẪN ẢNH ĐẠI DIỆN NHỎ TẠI ĐÂY -->
+                            <div class="timeline-avatar" style="background-image: url('anh-dai-dien-cua-ban.jpg')"></div>
+                            <div class="timeline-info">
+                                <div class="timeline-name">Quốc Cter</div>
+                                <div class="timeline-date">Se the nao neu ban an cut</div>
+                            </div>
+                        </div>
+                        <div class="timeline-content">
+                        </div>
+                        <!-- THAY ĐƯỜNG DẪN ẢNH TIMELINE TẠI ĐÂY -->
+                        <div class="timeline-image" style="background-image: url('anh-timeline-cua-ban.jpg')"></div>
+                        <div class="timeline-actions">
+                            <div class="action-btn">
+                                <i class="far fa-thumbs-up"></i>
+                                <span>Thích</span>
+                            </div>
+                            <div class="action-btn">
+                                <i class="far fa-comment"></i>
+                                <span>Bình luận</span>
+                            </div>
+                            <div class="action-btn">
+                                <i class="fas fa-share"></i>
+                                <span>Chia sẻ</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="timeline-item">
+                        <div class="timeline-header">
+                            <!-- THAY ĐƯỜNG DẪN ẢNH ĐẠI DIỆN NHỎ TẠI ĐÂY -->
+                            <div class="timeline-avatar" style="background-image: url('anh-dai-dien-cua-ban.jpg')"></div>
+                            <div class="timeline-info">
+                                <div class="timeline-name">Quốc Cter</div>
+                                <div class="timeline-date">15 tháng 10</div>
+                            </div>
+                        </div>
+                        <div class="timeline-content">
+                            Video mới trên YouTube đã được đăng tải! Hãy cùng xem và cho mình biết cảm nhận nhé. Đừng quên like, share và subscribe kênh "tinygaro" để ủng hộ mình!
+                        </div>
+                        <div class="timeline-actions">
+                            <div class="action-btn">
+                                <i class="far fa-thumbs-up"></i>
+                                <span>Thích</span>
+                            </div>
+                            <div class="action-btn">
+                                <i class="far fa-comment"></i>
+                                <span>Bình luận</span>
+                            </div>
+                            <div class="action-btn">
+                                <i class="fas fa-share"></i>
+                                <span>Chia sẻ</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Thêm hiệu ứng cho các nút checkbox
+        document.querySelectorAll('.checkbox-item input[type="checkbox"]').forEach(checkbox => {
+            checkbox.addEventListener('change', function() {
+                if(this.checked) {
+                    this.parentElement.style.backgroundColor = 'rgba(24, 119, 242, 0.1)';
+                    this.parentElement.style.transform = 'translateX(5px)';
+                } else {
+                    this.parentElement.style.backgroundColor = '';
+                    this.parentElement.style.transform = '';
+                }
+            });
+        });
+        
+        // Thêm hiệu ứng cho nút đăng bài
+        document.querySelector('.post-input').addEventListener('click', function() {
+            this.style.backgroundColor = '#e4e6eb';
+            setTimeout(() => {
+                this.style.backgroundColor = '#f0f2f5';
+            }, 300);
+            alert('Tính năng tạo bài viết mới!');
+        });
+        
+        // Thêm hiệu ứng hover cho các card
+        document.querySelectorAll('.card').forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-5px)';
+            });
+            
+            card.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateY(0)';
+            });
+        });
+        
+        // Thêm hiệu ứng cho nút like
+        document.querySelectorAll('.action-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const icon = this.querySelector('i');
+                if(icon.classList.contains('far')) {
+                    icon.classList.remove('far');
+                    icon.classList.add('fas');
+                    this.style.color = '#1877f2';
+                } else {
+                    icon.classList.remove('fas');
+                    icon.classList.add('far');
+                    this.style.color = '';
+                }
+            });
+        });
+    </script>
+</body>
+</html>
